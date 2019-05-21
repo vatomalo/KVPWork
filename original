@@ -1,0 +1,84 @@
+#include <iostream>
+#include <string>
+#include <cstdlib>
+#include <SFML/Graphics.hpp>
+#include "entity.cpp"
+
+
+//sf::Texture texture;
+sf::Texture background;
+//sf::RenderTexture renderTexture;
+std::string filename;
+
+void init()
+{
+
+}
+
+
+/*int display()
+{
+
+filename = "image.png";
+
+//background.loadFromFile(filename);
+
+//if (!texture.loadFromFile(filename))
+//{
+    // error...
+//}
+
+}*/
+
+void renderingThread(sf::RenderWindow* window)
+{
+    // activate the window's context
+    window->setActive(true);
+
+    // the rendering loop
+    while (window->isOpen())
+    {
+        // draw...
+		
+		
+        // end the current frame
+        window->display();
+    }
+}
+
+int main()
+{
+// create the window (remember: it's safer to create it in the main thread due to OS limitations)
+    sf::RenderWindow window(sf::VideoMode(800, 600), "OpenGL");
+	
+	//sf::Time time = 2000000;
+	window.clear(sf::Color::Black);
+
+
+    // deactivate its OpenGL context
+    window.setActive(false);
+
+    // launch the rendering thread
+    sf::Thread thread(&renderingThread, &window);
+    thread.launch();
+
+//	Character.print("Whats your name? \n\n",24);
+/*	std::cin>>Name;
+	std::cout<<"\nYour name is "<<Name<<"\n\n";
+	std::cin.get();
+	rolldice();
+	std::cin.get();
+	showstats();
+	std::cin.get();
+	tryagain();
+	pickclass();
+*/	
+while (window.isOpen())
+{
+	window.clear();
+//	window.draw(Mushroom);
+	window.display();
+	//sf::sleep(time);
+}
+return 0;
+}

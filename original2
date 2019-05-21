@@ -1,0 +1,62 @@
+#include <iostream>
+#include <string>
+#include <cstdlib>
+#include <SFML/Graphics.hpp>
+#include "Engine.cpp"
+
+System Mainframe;
+
+void init()
+{
+
+}
+
+void renderingThread(sf::RenderWindow* window)
+{
+    // activate the window's context
+    window->setActive(true);
+
+    // the rendering loop
+    while (window->isOpen())
+    {
+        // draw...
+		
+		window->draw(Mainframe.Background);
+		window->draw(Mainframe.Layer1);		
+		window->draw(Mainframe.Layer2);	
+		window->draw(Mainframe.Layer3);
+		window->draw(Mainframe.Layer4);	
+		window->draw(Mainframe.Layer5);	
+		window->draw(Mainframe.Layer6);	
+		window->draw(Mainframe.Layer7);
+
+        // end the current frame
+        window->display();
+    }
+}
+
+int main()
+{
+// create the window (remember: it's safer to create it in the main thread due to OS limitations)
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Tears Of Fate");
+	
+	window.clear(sf::Color::Black);
+
+    // deactivate its OpenGL context
+    window.setActive(false);
+
+    // launch the rendering thread
+    sf::Thread thread(&renderingThread, &window);
+    thread.launch();
+	Character player;
+
+while (window.isOpen())
+{
+	window.clear();
+	player.pickclass(1);
+	window.draw(Mainframe.Layer3);
+	window.draw(Mainframe.Layer7);
+	window.display();
+}
+return 0;
+}
